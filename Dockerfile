@@ -1,10 +1,11 @@
 FROM golang:latest as builder
 WORKDIR /go/src/socks5
 COPY server.go .
-RUN go get && go env -w GO111MODULE=off && CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-s' -o ./socks5
+ENV GO111MODULE=off
+RUN go get &&  CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-s' -o ./socks5
 
 FROM ghcr.io/riccardobl/docker-openvpn-tunnel:master
-
+ENV GO111MODULE=off
 COPY socks5-entrypoint.sh /usr/local/bin/
 COPY --from=builder /go/src/socks5/socks5 /usr/local/bin
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
