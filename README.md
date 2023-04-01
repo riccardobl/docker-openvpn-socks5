@@ -34,7 +34,7 @@ docker run --name "${NAME}" -dit --rm --device=/dev/net/tun --cap-add=NET_ADMIN 
     -p "${PORT}":1080 \
     -e SOCKS5_USER="${USER}" \
     -e SOCKS5_PASS="${PASS}" \
-    curve25519xsalsa20poly1305/openvpn-socks5
+   ghcr.io/riccardobl/docker-openvpn-socks5:master
 
 # Windows
 SET NAME="mysocks5"
@@ -46,7 +46,7 @@ docker run --name "%NAME%" -dit --rm --device=/dev/net/tun --cap-add=NET_ADMIN ^
     -p "%PORT%":1080 ^
     -e SOCKS5_USER="%USER%" ^
     -e SOCKS5_PASS="%PASS%" ^
-    curve25519xsalsa20poly1305/openvpn-socks5
+    ghcr.io/riccardobl/docker-openvpn-socks5:master
 ```
 
 Then on your host machine test it with curl:
